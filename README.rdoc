@@ -1,0 +1,106 @@
+= Vidibus::Sysinfo
+
+Allows reading various system information.
+
+
+== Installation
+
+Add the dependency to the Gemfile of your application:
+
+  gem "vidibus-sysinfo"
+
+Then call bundle install on your console.
+
+
+== System requirements
+
+This gem uses various tools to obtain system data. On Debian Lenny, installing
+those tools should be simple:
+
+  apt-get install sysstat vnstat
+  vnstat -u -i eth0
+
+
+== Usage
+
+=== CPU cores
+
+To get the number of CPU cores, call
+
+  Vidibus::Sysinfo.core
+  # => 8
+
+
+=== CPU utilization
+
+To get CPU utilization in percent, call
+
+  Vidibus::Sysinfo.cpu
+  # => 18.4 # percent
+
+
+=== System load
+
+The system load value is divided by the number of CPU cores.
+To get the system load, call
+
+  Vidibus::Sysinfo.load
+  # => 0.39
+
+
+=== Monthly traffic
+
+To get the total traffic of this month in gigabytes, call
+
+  Vidibus::Sysinfo.traffic
+  # => 7992.15 # gigabytes
+
+
+=== Currently used bandwidth
+
+To get the currently used bandwidth in MBit/s, call
+
+  Vidibus::Sysinfo.bandwidth
+  # => 38.71 # MBit/s
+
+Bandwidth detection is performed by analyzing the output of /proc/net/dev.
+To get the amount of traffic in a certain timespan, the analyzer gets
+called twice and the delta of the two results is the traffic.
+
+By default, bandwidth detection only waits one second, thus the results
+will be quite volatile. To get a more accurate result, you can provide
+an optional argument:
+
+  Vidibus::Sysinfo.bandwidth(10)
+  # => 33.28 # MBit/s
+
+
+=== Consumed storage
+
+To get the consumed storage of the main device in gigabytes, call
+
+  Vidibus::Sysinfo.storage
+  # => 647.89 # gigabytes
+
+
+=== Used memory
+
+To get the currently used memory in megabytes, call
+
+  Vidibus::Sysinfo.memory
+  # => 3281.38 # megabytes
+
+This will ignore memory used for system caching.
+
+
+=== Used swap
+
+To get the currently used swap in megabytes, call
+
+  Vidibus::Sysinfo.swap
+  # => 0.0 # megabytes
+
+
+== Copyright
+
+Copyright (c) 2011 Andre Pankratz. See LICENSE for details.
