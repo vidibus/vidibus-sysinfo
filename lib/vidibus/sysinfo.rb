@@ -1,3 +1,4 @@
+require "open3"
 require "sysinfo/base"
 require "sysinfo/core"
 require "sysinfo/cpu"
