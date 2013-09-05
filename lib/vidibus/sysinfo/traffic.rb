@@ -19,7 +19,7 @@ module Vidibus
 
         def parse(output)
           month = /(\s*\w{3} \'\d{2})/
-          traffic = /\s*(\d+(?:\.\d+)?) (kB|MB|GB|TB)\s*/
+          traffic = /\s*(\d+(?:\.\d+)?) (ki?B|Mi?B|Gi?B|Ti?B)\s*/
           last_month = output.split(/\r?\n/)[-3]
           if last_month and last_month.match(/#{month}#{traffic}\|#{traffic}\|#{traffic}+/m)
             amount = $6.to_f

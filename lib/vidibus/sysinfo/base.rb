@@ -52,13 +52,14 @@ module Vidibus
       end
 
       # Converts given amount from unit to megabytes.
+      # Treats GB and GiB identically because in our context GB == GiB.
       def megabytes(value, unit = "B")
         value = value.to_f
         case unit
-          when "B"       then value /= 1048576 # bytes
-          when "K", "KB" then value /= 1024    # kiloytes
-          when "G", "GB" then value *= 1024    # gigabytes
-          when "T", "TB" then value *= 1048576 # terabytes
+          when 'B'              then value /= 1048576 # bytes
+          when 'K', 'KB', 'KiB' then value /= 1024    # kiloytes
+          when 'G', 'GB', 'GiB' then value *= 1024    # gigabytes
+          when 'T', 'TB', 'TiB' then value *= 1048576 # terabytes
         end
         round(value)
       end

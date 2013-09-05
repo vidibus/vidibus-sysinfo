@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "Vidibus::Sysinfo::Traffic" do
   let(:this) {Vidibus::Sysinfo::Traffic}
-  let(:output) do
+  let(:output_gb) do
     "  eth0  /  monthly
 
        month         rx      |      tx      |   total
@@ -10,7 +10,16 @@ describe "Vidibus::Sysinfo::Traffic" do
       Feb '11      31.62 GB  |     1.93 TB  |     1.96 TB   ::::::::::::::::::::::
     -------------------------+--------------+--------------------------------------
      estimated        88 GB  |     5.50 TB  |     5.58 TB"
-   end
+  end
+  let(:output_gib) do
+    " eth0  /  monthly
+
+       month        rx      |     tx      |    total    |   avg. rate
+    ------------------------+-------------+-------------+---------------
+      Sep '13      2.17 GiB |   51.73 GiB |   53.91 GiB |    1.07 Mbit/s
+    ------------------------+-------------+-------------+---------------
+    estimated     13.32 GiB |  317.20 GiB |  330.53 GiB |"
+  end
 
   describe ".command" do
     it "should return 'vnstat -m'" do
@@ -19,8 +28,12 @@ describe "Vidibus::Sysinfo::Traffic" do
   end
 
   describe ".parse" do
-    it "should return a number from valid output" do
-      this.parse(output).should eql(2007.04)
+    it "should return a number from terabytes (which really are tibibytes)" do
+      this.parse(output_gb).should eql(2007.04)
+    end
+
+    it "should return a number from gibibytes" do
+      this.parse(output_gib).should eql(53.91)
     end
 
     it "should return 0.0 if not enough data is available yet" do
@@ -34,7 +47,7 @@ describe "Vidibus::Sysinfo::Traffic" do
 
   describe ".call" do
     it "should return the total traffic in gigabytes" do
-      stub(this).perform(this.command) {[output, ""]}
+      stub(this).perform(this.command) {[output_gb, ""]}
       this.call.should eql(2007.04)
     end
 
