@@ -20,6 +20,15 @@ describe "Vidibus::Sysinfo::Traffic" do
     ------------------------+-------------+-------------+---------------
     estimated     13.32 GiB |  317.20 GiB |  330.53 GiB |"
   end
+  let(:output_mib) do
+    " eth0  /  monthly
+
+       month        rx      |     tx      |    total    |   avg. rate
+    ------------------------+-------------+-------------+---------------
+      Sep '13       588 KiB |     620 KiB |    1.18 MiB |    0.02 kbit/s
+    ------------------------+-------------+-------------+---------------
+    estimated        --     |      --     |      --     |"
+  end
 
   describe ".command" do
     it "should return 'vnstat -m'" do
@@ -34,6 +43,10 @@ describe "Vidibus::Sysinfo::Traffic" do
 
     it "should return a number from gibibytes" do
       this.parse(output_gib).should eql(53.91)
+    end
+
+    it "should return a number from mibibytes" do
+      this.parse(output_mib).should eql(0.00)
     end
 
     it "should return 0.0 if not enough data is available yet" do
