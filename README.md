@@ -21,7 +21,7 @@ Then call bundle install on your console.
 This gem uses various tools to obtain system data. Installing those tools should be simple, at least on Debian and Ubuntu:
 
 ```shell
-  apt-get install sysstat vnstat lscpu
+  apt-get install sysstat vnstat
   vnstat -u -i eth0
   /etc/init.d/vnstat start
 ```
