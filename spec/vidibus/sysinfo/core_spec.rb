@@ -47,7 +47,7 @@ describe "Vidibus::Sysinfo::Core" do
       this.call.should eql(4)
     end
 
-    it "should yield an error if /proc/cpuinfo is not available" do
+    it "should yield an error if lscpu is not available" do
       stub(this).perform(this.command) {["       0\n", "cat: command not found: lscpu\n"]}
       expect {this.call}.to raise_error(Vidibus::Sysinfo::CallError)
     end
