@@ -1,13 +1,13 @@
-require "open3"
-require "sysinfo/base"
-require "sysinfo/core"
-require "sysinfo/cpu"
-require "sysinfo/load"
-require "sysinfo/traffic"
-require "sysinfo/bandwidth"
-require "sysinfo/storage"
-require "sysinfo/memory"
-require "sysinfo/swap"
+require 'open3'
+require 'vidibus/sysinfo/base'
+require 'vidibus/sysinfo/core'
+require 'vidibus/sysinfo/cpu'
+require 'vidibus/sysinfo/load'
+require 'vidibus/sysinfo/traffic'
+require 'vidibus/sysinfo/bandwidth'
+require 'vidibus/sysinfo/storage'
+require 'vidibus/sysinfo/memory'
+require 'vidibus/sysinfo/swap'
 
 module Vidibus
   module Sysinfo

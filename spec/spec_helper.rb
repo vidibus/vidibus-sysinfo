@@ -1,10 +1,13 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/spec/'
+end
 
-require "rubygems"
-require "rspec"
-require "rr"
-require "vidibus-sysinfo"
+$:.unshift File.expand_path('../../', __FILE__)
+
+require 'rspec'
+require 'rr'
+require 'vidibus-sysinfo'
 
 RSpec.configure do |config|
   config.mock_with :rr

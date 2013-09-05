@@ -55,10 +55,10 @@ module Vidibus
       def megabytes(value, unit = "B")
         value = value.to_f
         case unit
-          when "B"      : value /= 1048576 # bytes
-          when "K", "KB": value /= 1024    # kiloytes
-          when "G", "GB": value *= 1024    # gigabytes
-          when "T", "TB": value *= 1048576 # terabytes
+          when "B"       then value /= 1048576 # bytes
+          when "K", "KB" then value /= 1024    # kiloytes
+          when "G", "GB" then value *= 1024    # gigabytes
+          when "T", "TB" then value *= 1048576 # terabytes
         end
         round(value)
       end
