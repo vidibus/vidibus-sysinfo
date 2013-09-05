@@ -3,25 +3,27 @@ module Vidibus
 
     # Returns number of cpu cores on this system.
     #
-    # Analyzes /proc/cpuinfo
+    # Analyzes lscpu
     #
     module Core
       extend Base
 
       class << self
         def command
-          "cat /proc/cpuinfo | grep processor | wc -l"
+          'lscpu'
         end
 
         def parse(output)
-          if output.match(/\d+/)
-            output.to_i
+          cores = output[/Core\(s\) per socket:\s+(\d+)/, 1]
+          sockets = output[/Socket\(s\):\s+(\d+)/, 1]
+          if cores && sockets
+            cores.to_i * sockets.to_i
           end
         end
 
         def explain(error)
-          if error.match("No such file or directory")
-            return "This system does not provide /proc/cpuinfo"
+          if error.match('lscpu: command not found')
+            return 'lscup is not installed. On Debian you can install it with "apt-get install lscup"'
           end
         end
       end
