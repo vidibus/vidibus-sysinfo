@@ -14,8 +14,8 @@ module Vidibus
         end
 
         def parse(output)
-          cores = output[/Core\(s\) per socket:\s+(\d+)/, 1]
-          sockets = output[/Socket\(s\):\s+(\d+)/, 1]
+          cores = output[/Core\(s\) per socket:\s+(\d+)/i, 1]
+          sockets = output[/Socket\(s\):\s+(\d+)/i, 1]
           if cores && sockets
             cores.to_i * sockets.to_i
           end
