@@ -18,7 +18,7 @@ module Vidibus
         end
 
         def parse(output)
-          if output.match(/([\d\.]+)\s+[^\s]+$/)
+          if output.match(/([\d\.]+)$/)
             round(100.0 - $1.to_f)
           end
         end
