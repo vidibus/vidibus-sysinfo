@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe "Vidibus::Sysinfo::Bandwidth" do
-  let(:this) {Vidibus::Sysinfo::Bandwidth}
+describe "Vidibus::Sysinfo::Throughput" do
+  let(:this) {Vidibus::Sysinfo::Throughput}
   let(:first_output) do
     "  eth0:11987621067 183430993    0    0    0     0          0         0 639006876738 427999432    0    0    0     0       0          0"
    end
@@ -37,7 +37,7 @@ describe "Vidibus::Sysinfo::Bandwidth" do
       stub(this).perform(this.command) {calls.shift}
     end
 
-    it "should return the currently used bandwidth in MBit/s" do
+    it "should return the currently used throughput in MBit/s" do
       this.call.should eql(151.68)
     end
 

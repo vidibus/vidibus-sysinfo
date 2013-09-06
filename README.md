@@ -65,25 +65,25 @@ To get the total traffic of this month in gigabytes, call
   # => 7992.15 # gigabytes
 ```
 
-### Currently used bandwidth
+### Currently used throughput
 
-To get the currently used bandwidth in MBit/s, call
+To get the currently used throughput in MBit/s, call
 
 ```ruby
-  Vidibus::Sysinfo.bandwidth
+  Vidibus::Sysinfo.throughput
   # => 38.71 # MBit/s
 ```
 
-Bandwidth detection is performed by analyzing the output of /proc/net/dev.
+Throughput detection is performed by analyzing the output of /proc/net/dev.
 To get the amount of traffic in a certain timespan, the analyzer gets
 called twice and the delta of the two results is the traffic.
 
-By default, bandwidth detection only waits one second, thus the results
+By default, throughput detection only waits one second, thus the results
 will be quite volatile. To get a more accurate result, you can provide
 an optional argument:
 
 ```ruby
-  Vidibus::Sysinfo.bandwidth(10)
+  Vidibus::Sysinfo.throughput(10)
   # => 33.28 # MBit/s
 ```
 

@@ -31,15 +31,15 @@ describe "Vidibus::Sysinfo" do
     end
   end
 
-  describe ".bandwidth" do
-    it "should call Vidibus::Sysinfo::Bandwidth" do
-      mock(this::Bandwidth).call(1)
-      this.bandwidth
+  describe ".throughput" do
+    it "should call Vidibus::Sysinfo::Throughput" do
+      mock(this::Throughput).call(1)
+      this.throughput
     end
 
     it "should accept a seconds argument" do
-      mock(this::Bandwidth).call(2)
-      this.bandwidth(2)
+      mock(this::Throughput).call(2)
+      this.throughput(2)
     end
   end
 

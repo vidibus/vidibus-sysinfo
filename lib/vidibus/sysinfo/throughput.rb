@@ -1,11 +1,11 @@
 module Vidibus
   module Sysinfo
 
-    # Returns currently used bandwith in MBit/s.
+    # Returns currently used throughput in MBit/s.
     #
     # Analyzes /proc/net/dev
     #
-    module Bandwidth
+    module Throughput
       extend Base
 
       class << self

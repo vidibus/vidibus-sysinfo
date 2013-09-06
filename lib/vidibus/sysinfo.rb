@@ -4,7 +4,7 @@ require 'vidibus/sysinfo/core'
 require 'vidibus/sysinfo/cpu'
 require 'vidibus/sysinfo/load'
 require 'vidibus/sysinfo/traffic'
-require 'vidibus/sysinfo/bandwidth'
+require 'vidibus/sysinfo/throughput'
 require 'vidibus/sysinfo/storage'
 require 'vidibus/sysinfo/memory'
 require 'vidibus/sysinfo/swap'
@@ -33,11 +33,11 @@ module Vidibus
         Traffic.call
       end
 
-      # Returns currently used bandwith in MBit/s.
+      # Returns currently used throughput in MBit/s.
       # Provide seconds to improve measurement.
       # The higher the seconds, the more accurate are the results.
-      def bandwidth(seconds = 1)
-        Bandwidth.call(seconds)
+      def throughput(seconds = 1)
+        Throughput.call(seconds)
       end
 
       # Returns consumed storage in gigabytes.
