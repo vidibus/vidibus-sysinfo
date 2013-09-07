@@ -10,16 +10,15 @@ module Vidibus
 
       class << self
         def command
-          "df -h"
+          'df -m'
         end
 
         def parse(output)
           device = /(?:[\/a-z0-9]+)/
-          size = /\s+([\d\.]+)(K|M|G|T)\i?/
+          size = /\s+(\d+)\i?/
           if output.match(/#{device}#{size}#{size}/m)
-            amount = $3.to_f
-            unit = $4
-            gigabytes(amount, unit)
+            amount = $2.to_f
+            gigabytes(amount, 'M')
           end
         end
       end
