@@ -5,8 +5,8 @@ describe "Vidibus::Sysinfo::Cpu" do
   let(:output) {"Average:     all    0.05    0.00    0.02    0.17    0.00    0.15    0.00    0.00   99.60"}
 
   describe ".command" do
-    it "should return 'mpstat 5 1 | grep Average:'" do
-      this.command.should eql("mpstat 5 1 | grep Average:")
+    it "should return 'mpstat 1 5 | grep Average:'" do
+      this.command.should eql("mpstat 1 5 | grep Average:")
     end
   end
 

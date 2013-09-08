@@ -14,7 +14,7 @@ module Vidibus
 
       class << self
         def command
-          "mpstat 5 1 | grep Average:"
+          "mpstat 1 5 | grep Average:"
         end
 
         def parse(output)
