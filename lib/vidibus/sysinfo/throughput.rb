@@ -16,6 +16,7 @@ module Vidibus
         # Provide seconds to sleep between first and second call.
         # The higher the seconds, the more accurate are the results.
         def call(seconds = 1)
+          seconds = seconds.to_i
           values = []
           2.times do
             output, error = perform(command)
