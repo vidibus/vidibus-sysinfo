@@ -23,7 +23,7 @@ module Vidibus
 
         def explain(error)
           if error.match('lscpu: command not found')
-            return 'lscup is not installed. On Debian you can install it with "apt-get install lscup"'
+            return 'lscpu is not installed. On Debian you can install it with "apt-get install lscpu"'
           end
         end
       end
