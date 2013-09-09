@@ -30,7 +30,7 @@ module Vidibus
 
         # Returns sum of transmitted and received bytes in megabytes.
         def parse(output)
-          if output.match(/eth0\:([\d\s]+)/)
+          if output.match(/eth0\:\s*([\d\s]+)/)
             numbers = $1.split(/\s+/)
             received = numbers[0].to_i
             transmitted = numbers[8].to_i
