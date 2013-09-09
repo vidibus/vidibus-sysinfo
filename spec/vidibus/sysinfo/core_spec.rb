@@ -33,7 +33,7 @@ describe "Vidibus::Sysinfo::Core" do
 
   describe ".parse" do
     it "should return a number from valid output" do
-      this.parse(OUTPUT).should eql(4)
+      this.parse(OUTPUT).should eql(8)
     end
 
     it "should return nil from invalid output" do
@@ -44,7 +44,7 @@ describe "Vidibus::Sysinfo::Core" do
   describe ".call" do
     it "should return the number of CPU cores" do
       stub(this).perform(this.command) {[OUTPUT, ""]}
-      this.call.should eql(4)
+      this.call.should eql(8)
     end
 
     it "should yield an error if lscpu is not available" do

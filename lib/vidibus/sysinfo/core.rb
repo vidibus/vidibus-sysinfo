@@ -1,7 +1,7 @@
 module Vidibus
   module Sysinfo
 
-    # Returns number of cpu cores on this system.
+    # Returns number of CPUs on this system.
     #
     # Analyzes lscpu
     #
@@ -9,15 +9,13 @@ module Vidibus
       extend Base
 
       class << self
-        def command
+        def command()
           'lscpu'
         end
 
         def parse(output)
-          cores = output[/Core\(s\) per socket:\s+(\d+)/i, 1]
-          sockets = output[/Socket\(s\):\s+(\d+)/i, 1]
-          if cores && sockets
-            cores.to_i * sockets.to_i
+          if cpus = output[/CPU\(s\):\s+(\d+)/i, 1]
+            cpus.to_i
           end
         end
 
