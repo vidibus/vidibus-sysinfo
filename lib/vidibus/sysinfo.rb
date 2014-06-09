@@ -1,6 +1,7 @@
 require 'open3'
 require 'vidibus/sysinfo/helper'
 require 'vidibus/sysinfo/base'
+require 'vidibus/sysinfo/result'
 require 'vidibus/sysinfo/core'
 require 'vidibus/sysinfo/cpu'
 require 'vidibus/sysinfo/load'
