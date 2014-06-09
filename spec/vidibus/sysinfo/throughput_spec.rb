@@ -8,6 +8,12 @@ describe "Vidibus::Sysinfo::Throughput" do
   let(:second_output) do
     "   eth0: 11987897466 183435418    0    0    0     0          0         0 639026477572 428012510    0    0    0     0       0          0"
   end
+  let(:values) do
+    {
+      input: 2.08,
+      output: 149.52
+    }
+  end
 
   describe ".command" do
     it "should return 'cat /proc/net/dev | grep eth0:'" do
@@ -41,16 +47,13 @@ describe "Vidibus::Sysinfo::Throughput" do
       stub(this).perform(this.command) {calls.shift}
     end
 
-    it "should return a result instance" do
-      this.call.should be_a Vidibus::Sysinfo::Throughput::Result
+    it 'should return a result instance' do
+      this.call.should be_a(Vidibus::Sysinfo::Throughput::Result)
     end
 
-    it 'should set input' do
-      this.call.input.should eql(2.08)
-    end
-
-    it 'should set output' do
-      this.call.output.should eql(149.52)
+    it 'should initialize result with correct values' do
+      mock(Vidibus::Sysinfo::Throughput::Result).new(values)
+      this.call
     end
 
     it "should accept a seconds argument as interval" do
@@ -72,12 +75,6 @@ describe "Vidibus::Sysinfo::Throughput" do
   end
 
   describe 'Result' do
-    let(:values) do
-      {
-        input: 2.08,
-        output: 149.52
-      }
-    end
     let(:result) do
       Vidibus::Sysinfo::Throughput::Result.new(values)
     end
