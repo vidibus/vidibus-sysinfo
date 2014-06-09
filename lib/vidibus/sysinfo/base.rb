@@ -7,6 +7,7 @@ module Vidibus
 
     # Provides common methods.
     module Base
+      include Helper
 
       def call
         output, error = perform(command)
@@ -43,12 +44,6 @@ module Vidibus
         if error.match("in `popen3'")
           "the command '#{command}' is not available or this program is not allowed to call it"
         end
-      end
-
-      # Rounds float with given precision.
-      def round(float, precision = 2)
-        m = 10**precision
-        (float.to_f*m).round.to_f/m
       end
 
       # Converts given amount from unit to megabytes.
