@@ -4,10 +4,10 @@ describe "Vidibus::Sysinfo::Throughput" do
   let(:this) {Vidibus::Sysinfo::Throughput}
   let(:first_output) do
     "  eth0:11987621067 183430993    0    0    0     0          0         0 639006876738 427999432    0    0    0     0       0          0"
-   end
-   let(:second_output) do
+  end
+  let(:second_output) do
     "   eth0: 11987897466 183435418    0    0    0     0          0         0 639026477572 428012510    0    0    0     0       0          0"
-   end
+  end
 
   describe ".command" do
     it "should return 'cat /proc/net/dev | grep eth0:'" do
