@@ -8,6 +8,29 @@ module Vidibus
     module Throughput
       extend Base
 
+      class Result < Vidibus::Sysinfo::Result
+        attrs :input, :output
+
+        def sum
+          round(input + output)
+        end
+
+        def to_h
+          {
+            input: input,
+            output: output
+          }
+        end
+
+        def to_i
+          round(sum, 0).to_i
+        end
+
+        def to_f
+          sum.to_f
+        end
+      end
+
       class << self
         def command
           "cat /proc/net/dev | grep eth0:"
@@ -23,18 +46,24 @@ module Vidibus
             values << respond(output, error)
             sleep(seconds) unless values.size > 1
           end
-          megs = values[1] - values[0]
-          mbits = (megs*8)/seconds
-          round(mbits)
+          result = {}
+          [:input, :output].each do |type|
+            megs = values[1][type] - values[0][type]
+            result[type] = round((megs*8)/seconds)
+          end
+          Result.new(result)
         end
 
-        # Returns sum of transmitted and received bytes in megabytes.
+        # Returns received and sent megabytes.
         def parse(output)
           if output.match(/eth0\:\s*([\d\s]+)/)
             numbers = $1.split(/\s+/)
-            received = numbers[0].to_i
-            transmitted = numbers[8].to_i
-            megabytes(received + transmitted)
+            input = numbers[0].to_i
+            output = numbers[8].to_i
+            {
+              input: megabytes(input),
+              output: megabytes(output)
+            }
           end
         end
 
