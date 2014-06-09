@@ -9,10 +9,16 @@ module Vidibus
         end
       end
 
+      def [](key)
+        to_h[key]
+      end
+
       def to_h
-        {}.tap do |hash|
-          attrs.each do |attr|
-            hash[attr] = send(attr)
+        @hash ||= begin
+          {}.tap do |hash|
+            attrs.each do |attr|
+              hash[attr] = send(attr)
+            end
           end
         end
       end

@@ -97,6 +97,9 @@ describe "Vidibus::Sysinfo::Traffic" do
   end
 
   describe 'Result' do
+    let(:values_gb_with_total) do
+      values_gb.merge(total: 2007.94)
+    end
     let(:result) do
       Vidibus::Sysinfo::Traffic::Result.new(values_gb)
     end
@@ -122,7 +125,13 @@ describe "Vidibus::Sysinfo::Traffic" do
     end
 
     it 'should respond to #to_h' do
-      result.to_h.should eq(values_gb.merge(total: 2007.94))
+      result.to_h.should eq(values_gb_with_total)
+    end
+
+    it 'should support metrics as hash key' do
+      values_gb_with_total.keys.each do |metric|
+        result[metric].should eq(values_gb_with_total[metric])
+      end
     end
   end
 end

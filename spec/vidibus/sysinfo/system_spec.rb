@@ -86,5 +86,11 @@ describe "Vidibus::Sysinfo::System" do
     it 'should respond to #to_h' do
       result.to_h.should eq(values)
     end
+
+    it 'should support metrics as hash key' do
+      values.keys.each do |metric|
+        result[metric].should eq(values[metric])
+      end
+    end
   end
 end
