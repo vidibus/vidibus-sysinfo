@@ -8,16 +8,35 @@ module Vidibus
     module Load
       extend Base
 
+      class Result < Vidibus::Sysinfo::Result
+        attrs :one, :five, :fifteen
+
+        def to_i
+          round(one, 0).to_i
+        end
+
+        def to_f
+          one
+        end
+      end
+
       class << self
         def command
           "uptime"
         end
 
         def parse(output)
-          if output.match(/load average:\s+(\d+(?:\.\d+)?)/)
-            value = $1.to_f
-            cores = Core.call
-            round(value/cores)
+          number = /\s+(\d+(?:\.\d+)?)/
+          if output.match(/load average:#{number},#{number},#{number}/)
+            one = $1.to_f
+            five = $2.to_f
+            fifteen = $3.to_f
+            cpus = Core.call[:cpus]
+            Result.new({
+              one: round(one/cpus),
+              five: round(five/cpus),
+              fifteen: round(fifteen/cpus)
+            })
           end
         end
       end
