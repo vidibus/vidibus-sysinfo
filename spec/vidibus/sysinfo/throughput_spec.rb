@@ -87,8 +87,8 @@ describe "Vidibus::Sysinfo::Throughput" do
       result.output.should eq(149.52)
     end
 
-    it 'should respond to #sum' do
-      result.sum.should eq(151.6)
+    it 'should respond to #total' do
+      result.total.should eq(151.6)
     end
 
     it 'should respond to #to_i' do

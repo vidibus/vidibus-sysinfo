@@ -11,16 +11,16 @@ module Vidibus
       class Result < Vidibus::Sysinfo::Result
         attrs :input, :output
 
-        def sum
+        def total
           round(input + output)
         end
 
         def to_i
-          round(sum, 0).to_i
+          round(total, 0).to_i
         end
 
         def to_f
-          sum.to_f
+          total.to_f
         end
       end
 
