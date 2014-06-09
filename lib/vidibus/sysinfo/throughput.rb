@@ -15,13 +15,6 @@ module Vidibus
           round(input + output)
         end
 
-        def to_h
-          {
-            input: input,
-            output: output
-          }
-        end
-
         def to_i
           round(sum, 0).to_i
         end
