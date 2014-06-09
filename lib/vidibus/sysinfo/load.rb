@@ -11,10 +11,6 @@ module Vidibus
       class Result < Vidibus::Sysinfo::Result
         attrs :one, :five, :fifteen
 
-        def to_i
-          round(one, 0).to_i
-        end
-
         def to_f
           one
         end

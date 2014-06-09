@@ -73,10 +73,6 @@ describe "Vidibus::Sysinfo::Load" do
       result.fifteen.should eq(0.56)
     end
 
-    it 'should respond to #to_i' do
-      result.to_i.should eq(0)
-    end
-
     it 'should respond to #to_f' do
       result.to_f.should eq(0.46)
     end
