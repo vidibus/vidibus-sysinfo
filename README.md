@@ -30,11 +30,14 @@ This gem uses various tools to obtain system data. Installing those tools should
 
 ### CPU cores
 
-To get the number of CPU cores, call
+To get general system information, call
 
 ```ruby
-  Vidibus::Sysinfo.core
-  # => 4
+  Vidibus::Sysinfo.system.to_h    # following metrics as hash
+
+  Vidibus::Sysinfo.system.cpus    # number of CPUs
+  Vidibus::Sysinfo.system.cores   # number of cores
+  Vidibus::Sysinfo.system.sockets # number of sockets
 ```
 
 ### CPU utilization
@@ -42,8 +45,20 @@ To get the number of CPU cores, call
 To get CPU utilization in percent, call
 
 ```ruby
-  Vidibus::Sysinfo.cpu
-  # => 18.4 # percent
+  Vidibus::Sysinfo.cpu.to_f   # usage total
+  Vidibus::Sysinfo.cpu.to_i   # rounded usage total
+  Vidibus::Sysinfo.cpu.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.cpu.used   # usage total
+  Vidibus::Sysinfo.cpu.idle   # idle
+  Vidibus::Sysinfo.cpu.user   # on user level
+  Vidibus::Sysinfo.cpu.nice   # with nice priority
+  Vidibus::Sysinfo.cpu.system # on system level
+  Vidibus::Sysinfo.cpu.iowait # waiting for IO
+  Vidibus::Sysinfo.cpu.irq    # caused by service interrupts
+  Vidibus::Sysinfo.cpu.soft   # caused by software interrupts
+  Vidibus::Sysinfo.cpu.steal  # caused by virtualization hypervisor
+  Vidibus::Sysinfo.cpu.guest  # on virtual processors
 ```
 
 ### System load
@@ -52,8 +67,12 @@ The system load value is divided by the number of CPU cores.
 To get the system load, call
 
 ```ruby
-  Vidibus::Sysinfo.load
-  # => 0.39
+  Vidibus::Sysinfo.load.to_f    # system load over last minute
+  Vidibus::Sysinfo.load.to_h    # following metrics as hash
+
+  Vidibus::Sysinfo.load.one     # system load over last minute
+  Vidibus::Sysinfo.load.five    # system load over five minutes
+  Vidibus::Sysinfo.load.fifteen # system load over fifteen minutes
 ```
 
 ### Monthly traffic
@@ -61,8 +80,13 @@ To get the system load, call
 To get the total traffic of this month in gigabytes, call
 
 ```ruby
-  Vidibus::Sysinfo.traffic
-  # => 7992.15 # gigabytes
+  Vidibus::Sysinfo.traffic.to_f   # traffic total
+  Vidibus::Sysinfo.traffic.to_i   # rounded traffic total
+  Vidibus::Sysinfo.traffic.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.traffic.total  # traffic total
+  Vidibus::Sysinfo.traffic.input  # input traffic
+  Vidibus::Sysinfo.traffic.output # output traffic
 ```
 
 ### Currently used throughput
@@ -70,8 +94,13 @@ To get the total traffic of this month in gigabytes, call
 To get the currently used throughput in MBit/s, call
 
 ```ruby
-  Vidibus::Sysinfo.throughput
-  # => 38.71 # MBit/s
+  Vidibus::Sysinfo.throughput.to_f   # throughput total
+  Vidibus::Sysinfo.throughput.to_i   # rounded throughput total
+  Vidibus::Sysinfo.throughput.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.throughput.total  # throughput total
+  Vidibus::Sysinfo.throughput.input  # input throughput
+  Vidibus::Sysinfo.throughput.output # output throughput
 ```
 
 Throughput detection is performed by analyzing the output of /proc/net/dev.
@@ -84,39 +113,53 @@ an optional argument:
 
 ```ruby
   Vidibus::Sysinfo.throughput(10)
-  # => 33.28 # MBit/s
 ```
 
-### Consumed storage
+### Storage
 
-To get the consumed storage of the main device in gigabytes, call
+To get storage information on the main device in gigabytes, call
 
 ```ruby
-  Vidibus::Sysinfo.storage
-  # => 647.89 # gigabytes
+  Vidibus::Sysinfo.storage.to_f   # used storage
+  Vidibus::Sysinfo.storage.to_i   # rounded used storage
+  Vidibus::Sysinfo.storage.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.storage.used   # used storage
+  Vidibus::Sysinfo.storage.free   # free storage
+  Vidibus::Sysinfo.storage.total  # disk size
 ```
 
-### Used memory
+### Memory
 
 To get the currently used memory in megabytes, call
 
 ```ruby
-  Vidibus::Sysinfo.memory
-  # => 3281.38 # megabytes
+  Vidibus::Sysinfo.memory.to_f   # used memory
+  Vidibus::Sysinfo.memory.to_i   # rounded used memory
+  Vidibus::Sysinfo.memory.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.memory.used   # used memory
+  Vidibus::Sysinfo.memory.free   # free memory
+  Vidibus::Sysinfo.memory.total  # memory size
 ```
 
 This will ignore memory used for system caching.
 
 
-### Used swap
+### Swap
 
 To get the currently used swap in megabytes, call
 
 ```ruby
-  Vidibus::Sysinfo.swap
-  # => 0.0 # megabytes
+  Vidibus::Sysinfo.swap.to_f   # used swap
+  Vidibus::Sysinfo.swap.to_i   # rounded used swap
+  Vidibus::Sysinfo.swap.to_h   # following metrics as hash
+
+  Vidibus::Sysinfo.swap.used   # used swap
+  Vidibus::Sysinfo.swap.free   # free swap
+  Vidibus::Sysinfo.swap.total  # swap size
 ```
 
 ## Copyright
 
-Copyright (c) 2011-2013 Andre Pankratz. See LICENSE for details.
+Copyright (c) 2011-2014 Andre Pankratz. See LICENSE for details.
