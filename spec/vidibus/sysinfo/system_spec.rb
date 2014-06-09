@@ -1,6 +1,6 @@
 require "spec_helper"
 
-CORE_OUTPUT = 'Architecture:          x86_64
+SYSTEM_OUTPUT = 'Architecture:          x86_64
 CPU op-mode(s):        32-bit, 64-bit
 Byte Order:            Little Endian
 CPU(s):                8
@@ -22,8 +22,8 @@ L2 cache:              256K
 L3 cache:              8192K
 NUMA node0 CPU(s):     0-7'
 
-describe "Vidibus::Sysinfo::Core" do
-  let(:this) {Vidibus::Sysinfo::Core}
+describe "Vidibus::Sysinfo::System" do
+  let(:this) {Vidibus::Sysinfo::System}
   let(:values) do
     {
       cpus: 8,
@@ -40,12 +40,12 @@ describe "Vidibus::Sysinfo::Core" do
 
   describe ".parse" do
     it 'should return a result instance' do
-      this.parse(CORE_OUTPUT).should be_a(Vidibus::Sysinfo::Core::Result)
+      this.parse(SYSTEM_OUTPUT).should be_a(Vidibus::Sysinfo::System::Result)
     end
 
     it 'should initialize result with correct values' do
-      mock(Vidibus::Sysinfo::Core::Result).new(values) { true }
-      this.parse(CORE_OUTPUT)
+      mock(Vidibus::Sysinfo::System::Result).new(values) { true }
+      this.parse(SYSTEM_OUTPUT)
     end
 
     it "should return nil from invalid output" do
@@ -55,8 +55,8 @@ describe "Vidibus::Sysinfo::Core" do
 
   describe ".call" do
     it 'should call #parse' do
-      stub(this).perform(this.command) {[CORE_OUTPUT, '']}
-      mock(this).parse(CORE_OUTPUT) { true }
+      stub(this).perform(this.command) {[SYSTEM_OUTPUT, '']}
+      mock(this).parse(SYSTEM_OUTPUT) { true }
       this.call
     end
 
@@ -68,7 +68,7 @@ describe "Vidibus::Sysinfo::Core" do
 
   describe 'Result' do
     let(:result) do
-      Vidibus::Sysinfo::Core::Result.new(values)
+      Vidibus::Sysinfo::System::Result.new(values)
     end
 
     it 'should respond to #cpus' do
@@ -81,14 +81,6 @@ describe "Vidibus::Sysinfo::Core" do
 
     it 'should respond to #sockets' do
       result.sockets.should eq(1)
-    end
-
-    it 'should respond to #to_i' do
-      result.to_i.should eq(8)
-    end
-
-    it 'should respond to #to_f' do
-      result.to_f.should eq(8.0)
     end
 
     it 'should respond to #to_h' do

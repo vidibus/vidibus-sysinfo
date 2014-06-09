@@ -5,19 +5,11 @@ module Vidibus
     #
     # Analyzes lscpu
     #
-    module Core
+    module System
       extend Base
 
       class Result < Vidibus::Sysinfo::Result
         attrs :cpus, :cores, :sockets
-
-        def to_i
-          cpus
-        end
-
-        def to_f
-          cpus.to_f
-        end
       end
 
       class << self

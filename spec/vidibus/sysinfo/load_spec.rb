@@ -12,7 +12,7 @@ describe "Vidibus::Sysinfo::Load" do
   end
 
   before do
-    stub(Vidibus::Sysinfo::Core).call do
+    stub(Vidibus::Sysinfo::System).call do
       {cpus: 2}
     end
   end

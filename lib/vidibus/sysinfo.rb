@@ -2,7 +2,7 @@ require 'open3'
 require 'vidibus/sysinfo/helper'
 require 'vidibus/sysinfo/base'
 require 'vidibus/sysinfo/result'
-require 'vidibus/sysinfo/core'
+require 'vidibus/sysinfo/system'
 require 'vidibus/sysinfo/cpu'
 require 'vidibus/sysinfo/load'
 require 'vidibus/sysinfo/traffic'
@@ -15,9 +15,9 @@ module Vidibus
   module Sysinfo
     class << self
 
-      # Returns number of cpu cores.
-      def core
-        Core.call
+      # Returns system information like CPUs and cores.
+      def system
+        System.call
       end
 
       # Returns CPU utilization in percent.

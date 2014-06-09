@@ -3,10 +3,10 @@ require "spec_helper"
 describe "Vidibus::Sysinfo" do
   let(:this) {Vidibus::Sysinfo}
 
-  describe ".core" do
-    it "should call Vidibus::Sysinfo::Core" do
-      mock(this::Core).call
-      this.core
+  describe '.system' do
+    it 'should call Vidibus::Sysinfo::System' do
+      mock(this::System).call
+      this.system
     end
   end
 

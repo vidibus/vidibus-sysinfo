@@ -31,7 +31,7 @@ module Vidibus
             one = $1.to_f
             five = $2.to_f
             fifteen = $3.to_f
-            cpus = Core.call[:cpus]
+            cpus = System.call[:cpus]
             Result.new({
               one: round(one/cpus),
               five: round(five/cpus),
