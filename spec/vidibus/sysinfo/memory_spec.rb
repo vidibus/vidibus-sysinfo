@@ -41,7 +41,7 @@ describe "Vidibus::Sysinfo::Memory" do
       this.call
     end
 
-    it 'should yield an error if /proc/cpuinfo is not available' do
+    it 'should yield an error if command is not available' do
       stub(this).perform(this.command) {['', "sh: free: command not found\n"]}
       expect {this.call}.to raise_error(Vidibus::Sysinfo::CallError)
     end

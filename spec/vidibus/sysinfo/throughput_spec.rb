@@ -68,7 +68,7 @@ describe "Vidibus::Sysinfo::Throughput" do
       result.output.should eql(49.84)
     end
 
-    it "should yield an error if /proc/net/dev is not available" do
+    it 'should yield an error if command is not available' do
       stub(this).perform(this.command) {["", "cat: /proc/net/dev: No such file or directory\n"]}
       expect {this.call}.to raise_error(Vidibus::Sysinfo::CallError)
     end
