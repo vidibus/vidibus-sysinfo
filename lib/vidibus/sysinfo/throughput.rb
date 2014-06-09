@@ -11,6 +11,10 @@ module Vidibus
       class Result < Vidibus::Sysinfo::Result
         attrs :input, :output
 
+        def to_h
+          super.merge(total: total)
+        end
+
         def total
           round(input + output)
         end

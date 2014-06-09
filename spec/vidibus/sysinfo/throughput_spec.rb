@@ -100,7 +100,7 @@ describe "Vidibus::Sysinfo::Throughput" do
     end
 
     it 'should respond to #to_h' do
-      result.to_h.should eq(values)
+      result.to_h.should eq(values.merge(total: 151.6))
     end
   end
 end
