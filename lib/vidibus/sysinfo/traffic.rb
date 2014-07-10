@@ -51,7 +51,10 @@ module Vidibus
               output: gigabytes(output_amount, output_unit)
             })
           elsif output.match("Not enough data available yet")
-            0.0
+            Result.new({
+              input: 0.0,
+              output: 0.0
+            })
           end
         end
 

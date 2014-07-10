@@ -75,7 +75,9 @@ describe "Vidibus::Sysinfo::Traffic" do
     end
 
     it "should return 0.0 if not enough data is available yet" do
-      this.parse(" eth0: Not enough data available yet.\n").should eql(0.0)
+      result = this.parse(" eth0: Not enough data available yet.\n")
+      result.input.should eq(0.0)
+      result.output.should eq(0.0)
     end
 
     it "should return nil from invalid output" do
