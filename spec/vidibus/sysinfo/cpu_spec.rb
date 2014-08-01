@@ -2,7 +2,31 @@ require "spec_helper"
 
 describe "Vidibus::Sysinfo::Cpu" do
   let(:this) {Vidibus::Sysinfo::Cpu}
-  let(:output) {"Average:     all    0.05    0.25    0.03    0.17    0.00    0.15    0.01    0.02   99.31"}
+  let(:output) do
+"Linux 3.13.0-29-generic (x2)  08/01/2014  _x86_64_  (12 CPU)
+
+02:10:28 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02:10:29 AM  all    0.08    0.00    0.17    0.00    0.00    0.00    0.00    0.00    0.00   99.75
+02:10:30 AM  all    0.08    0.00    0.08    0.33    0.00    0.00    0.00    0.00    0.00   99.50
+02:10:31 AM  all    0.17    0.08    0.42    0.00    0.08    0.00    0.00    0.00    0.00   99.25
+02:10:32 AM  all    7.10    0.00    0.25    0.00    0.00    0.00    0.00    0.00    0.00   92.65
+02:10:33 AM  all    4.67    0.00    0.33    0.08    0.08    0.00    0.00    0.00    0.00   94.83
+Average:     all    0.05    0.25    0.03    0.17    0.00    0.15    0.01    0.02    0.00   99.31"
+  end
+
+    let(:alternative_output) do
+'Linux 3.11.0-18-generic (de11.cdn.vidibus.net)   08/01/2014  _x86_64_  (8 CPU)
+
+02:08:24 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle
+02:08:25 AM  all    0.00    0.00    0.12    0.00    0.00    0.00    0.00    0.00   99.88
+02:08:26 AM  all    0.13    0.00    0.13    0.00    0.00    0.00    0.00    0.00   99.75
+02:08:27 AM  all    0.00    0.00    0.12    0.00    0.00    0.00    0.00    0.00   99.88
+02:08:28 AM  all    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+02:08:29 AM  all    0.00    0.00    0.12    0.00    0.00    0.00    0.00    0.00   99.88
+Average:     all    0.05    0.25    0.03    0.17    0.00    0.15    0.01    0.02   99.31'
+    end
+
+
   let(:values) do
     {
       user: 0.05,
@@ -19,8 +43,8 @@ describe "Vidibus::Sysinfo::Cpu" do
   end
 
   describe ".command" do
-    it "should return 'mpstat 1 5 | grep Average:'" do
-      this.command.should eql("mpstat 1 5 | grep Average:")
+    it "should return 'mpstat 1 5'" do
+      this.command.should eql("mpstat 1 5")
     end
   end
 
@@ -36,6 +60,13 @@ describe "Vidibus::Sysinfo::Cpu" do
 
     it "should return nil from invalid output" do
       this.parse("something").should be_nil
+    end
+
+    context 'with alternative output' do
+      it 'should initialize result with correct values' do
+        mock(Vidibus::Sysinfo::Cpu::Result).new(values) { true }
+        this.parse(alternative_output)
+      end
     end
   end
 

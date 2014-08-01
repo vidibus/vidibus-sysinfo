@@ -13,7 +13,20 @@ module Vidibus
       extend Base
 
       class Result < Vidibus::Sysinfo::Result
-        attrs :user, :nice, :system, :iowait, :irq, :soft, :steal, :guest, :idle, :used
+        KEYS = {
+          usr:    :user,
+          user:   :user,
+          nice:   :nice,
+          sys:    :system,
+          system: :system,
+          iowait: :iowait,
+          irq:    :irq,
+          soft:   :soft,
+          steal:  :steal,
+          guest:  :guest,
+          idle:   :idle
+        }
+        attrs *KEYS.values.uniq + [:used]
 
         def to_i
           round(used, 0).to_i
@@ -26,24 +39,22 @@ module Vidibus
 
       class << self
         def command
-          "mpstat 1 5 | grep Average:"
+          'mpstat 1 5'
         end
 
+        # user system missing
         def parse(output)
-          matches = output.scan(/([\d\.]+)/)
-          if matches.any?
-            matches.flatten!
-            data = {
-              user: matches[0].to_f,
-              nice: matches[1].to_f,
-              system: matches[2].to_f,
-              iowait: matches[3].to_f,
-              irq: matches[4].to_f,
-              soft: matches[5].to_f,
-              steal: matches[6].to_f,
-              guest: matches[7].to_f,
-              idle: matches[8].to_f
-            }
+          lines = output.split(/\r?\n/)
+          values = lines[-1].scan(/([\d\.]+)/)
+          if values.any?
+            values.flatten!
+            data = {}
+            labels = lines[2].scan(/%([^\s]+)/).flatten
+            labels.each_with_index do |label, index|
+              key = Result::KEYS[label.to_sym]
+              next unless key
+              data[key] = values[index].to_f
+            end
             data[:used] = round(100.0 - data[:idle])
             Result.new(data)
           end
