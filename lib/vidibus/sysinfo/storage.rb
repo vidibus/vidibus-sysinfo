@@ -22,7 +22,11 @@ module Vidibus
 
       class << self
         def command(mount_point)
-          mp = mount_point.gsub(/[^\/a-z0-9]/, '')
+          if !mount_point || mount_point == ''
+            mp = '/'
+          else
+            mp = mount_point.gsub(/[^\/a-z0-9]/, '')
+          end
           "df -m | grep '#{mp}'"
         end
 

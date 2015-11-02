@@ -45,6 +45,18 @@ tmpfs                    16073         0     16073   0% /dev/shm
         this.command('/some; rm -rf /').should eql("df -m | grep '/somermrf/'")
       end
     end
+
+    context 'with nil argument' do
+      it "should return \"df -m | grep '/'\"" do
+        this.command(nil).should eql("df -m | grep '/'")
+      end
+    end
+
+    context 'with empty argument' do
+      it "should return \"df -m | grep '/'\"" do
+        this.command('').should eql("df -m | grep '/'")
+      end
+    end
   end
 
   describe ".parse" do
