@@ -21,8 +21,15 @@ module Vidibus
       end
 
       class << self
-        def command
-          'df -m'
+        def command(mount_point)
+          mp = mount_point.gsub(/[^\/a-z0-9]/, '')
+          "df -m | grep '#{mp}'"
+        end
+
+        def call(mount_point)
+          cmd = command(mount_point)
+          output, error = perform(cmd)
+          respond(output, error)
         end
 
         def parse(output)

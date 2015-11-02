@@ -44,8 +44,8 @@ describe "Vidibus::Sysinfo" do
   end
 
   describe ".storage" do
-    it "should call Vidibus::Sysinfo::Storage" do
-      mock(this::Storage).call
+    it "should call Vidibus::Sysinfo::Storage with default mount point" do
+      mock(this::Storage).call('/')
       this.storage
     end
   end

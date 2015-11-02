@@ -43,8 +43,8 @@ module Vidibus
       end
 
       # Returns consumed storage in gigabytes.
-      def storage
-        Storage.call
+      def storage(mount_point = '/')
+        Storage.call(mount_point)
       end
 
       # Returns used memory in megabytes.
