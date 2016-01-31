@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe "Vidibus::Sysinfo::Storage" do
   let(:this) {Vidibus::Sysinfo::Storage}
+
   let(:output) do
 '/dev/md2               2822276   1547374   1132668  58% /
 tmpfs                    16073         0     16073   0% /lib/init/rw
@@ -9,9 +10,11 @@ udev                     16068         1     16067   1% /dev
 tmpfs                    16073         0     16073   0% /dev/shm
 /dev/md1                   496        31       440   7% /boot'
   end
+
   let(:output_home) do
     '/dev/md3        11119045 642677   9915978   7% /home'
   end
+
   let(:values) do
     {
       total: 2756.13,
@@ -19,6 +22,7 @@ tmpfs                    16073         0     16073   0% /dev/shm
       free: 1106.12
     }
   end
+
   let(:values_home) do
     {
       total: 10858.44,
