@@ -27,7 +27,7 @@ module Vidibus
           else
             mp = mount_point.gsub(/[^\/a-z0-9]/, '')
           end
-          "df -m | grep '#{mp}'"
+          "df -m | grep '#{mp}$'"
         end
 
         def call(mount_point)
