@@ -22,16 +22,20 @@ module Vidibus
 
       class << self
         def command
-          "free -m | grep Mem:"
+          'free -m'
         end
 
         def parse(output)
+          new_format = !!output.match(/available/)
           if output.match(/^Mem:\s+([\d\s]+)$/)
             numbers = $1.split(/\s+/)
             total = numbers[0].to_i
             buffers = numbers[4].to_i
-            cached = numbers[5].to_i
-            used = numbers[1].to_i - buffers - cached
+            cached = new_format ? buffers : numbers[5].to_i
+            used = numbers[1].to_i
+            unless new_format
+              used -= buffers + cached
+            end
             Result.new({
               total: total,
               used: used,
