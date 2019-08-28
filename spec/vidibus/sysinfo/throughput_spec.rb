@@ -14,10 +14,13 @@ describe "Vidibus::Sysinfo::Throughput" do
       output: 149.52
     }
   end
+  before do
+    stub(this).link_ether { "eth0:" }
+  end
 
   describe ".command" do
-    it "should return 'cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})'" do
-      this.command.should eql("cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})")
+    it "should return 'cat /proc/net/dev | grep eth0:'" do
+      this.command.should eql("cat /proc/net/dev | grep eth0:")
     end
   end
 

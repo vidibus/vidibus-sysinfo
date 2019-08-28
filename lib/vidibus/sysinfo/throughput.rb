@@ -30,9 +30,14 @@ module Vidibus
 
       class << self
         def command
-          "cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})"
+          "cat /proc/net/dev | grep #{link_ether}"
         end
 
+        def link_ether
+          return @link_ether if @link_ether
+          @link_ether, _error = perform("ip -o link | grep -m 1 link/ether | awk {'print $2'}")
+          @link_ether
+        end
         # Provide seconds to sleep between first and second call.
         # The higher the seconds, the more accurate are the results.
         def call(seconds = 1)
@@ -53,7 +58,7 @@ module Vidibus
 
         # Returns received and sent megabytes.
         def parse(output)
-          if output.match(/eth0\:\s*([\d\s]+)/)
+          if output.match(/#{Regexp.escape(link_ether)}\s*([\d\s]+)/)
             numbers = $1.split(/\s+/)
             input = numbers[0].to_i
             output = numbers[8].to_i
