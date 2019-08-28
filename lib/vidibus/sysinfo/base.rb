@@ -37,7 +37,7 @@ module Vidibus
         end
 
         parse(output) or
-          raise ParseError.new("Result from call of #{self} could not be parsed: #{output.strip}")
+          raise ParseError.new("Result from call of #{self} could not be parsed: #{output}")
       end
 
       def open3_reason(error)

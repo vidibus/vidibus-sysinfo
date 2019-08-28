@@ -36,7 +36,7 @@ module Vidibus
         def link_ether
           return @link_ether if @link_ether
           @link_ether, _error = perform("ip -o link | grep -m 1 link/ether | awk {'print $2'}")
-          @link_ether
+          @link_ether.strip
         end
         # Provide seconds to sleep between first and second call.
         # The higher the seconds, the more accurate are the results.
