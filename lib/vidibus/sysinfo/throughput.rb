@@ -59,7 +59,7 @@ module Vidibus
         # Returns received and sent megabytes.
         def parse(output)
           if output.strip.match(/#{Regexp.escape(link_ether)}\s*([\d\s]+)/)
-            numbers = $1.split(/\s+/)
+            numbers = $1.strip.split(/\s+/)
             input = numbers[0].to_i
             output = numbers[8].to_i
             {
