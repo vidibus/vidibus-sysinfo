@@ -16,8 +16,8 @@ describe "Vidibus::Sysinfo::Throughput" do
   end
 
   describe ".command" do
-    it "should return 'cat /proc/net/dev | grep eth0:'" do
-      this.command.should eql("cat /proc/net/dev | grep eth0:")
+    it "should return 'cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})'" do
+      this.command.should eql("cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})")
     end
   end
 
