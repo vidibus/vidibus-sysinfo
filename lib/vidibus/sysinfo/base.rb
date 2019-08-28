@@ -36,8 +36,9 @@ module Vidibus
           raise OutputError.new("Result from call of #{self} is empty")
         end
 
-        parse(output) or
-          raise ParseError.new("Result from call of #{self} could not be parsed: '#{parse(output)}'")
+        values = parse(output)
+        values or
+          raise ParseError.new("Result from call of #{self} could not be parsed: '#{output}' 16:38")
       end
 
       def open3_reason(error)
