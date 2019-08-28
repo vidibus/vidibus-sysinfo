@@ -30,7 +30,7 @@ module Vidibus
 
       class << self
         def command
-          "cat /proc/net/dev | grep eth0:"
+          "cat /proc/net/dev | grep $(ip -o link | grep -m 1 link/ether | awk {'print $2'})"
         end
 
         # Provide seconds to sleep between first and second call.
