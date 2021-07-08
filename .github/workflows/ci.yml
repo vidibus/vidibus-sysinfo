@@ -1,0 +1,21 @@
+name: Continuous Integration
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-18.04, ubuntu-20.04]
+        ruby: [2.5, 2.6, 2.7]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - run: |
+        gem install bundler -N
+        bundle install --jobs 4 --retry 3
+        bundle exec rspec
